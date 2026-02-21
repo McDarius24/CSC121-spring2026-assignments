@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyP0pmUDwLVI1Plzsem8p+Yn",
+      "authorship_tag": "ABX9TyMX8Erwu4YIuyImFMGFxInN",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,11 +28,30 @@
     },
     {
       "cell_type": "code",
-      "execution_count": 22,
+      "execution_count": 25,
       "metadata": {
-        "id": "tUIyhaRHz5Vt"
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "tUIyhaRHz5Vt",
+        "outputId": "0ba79a27-3514-4c05-fade-670a91cf4433"
       },
-      "outputs": [],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter your PIN: 0000\n",
+            "Incorrect PIN. Try again.\n",
+            "Enter your PIN: 1234\n",
+            "PIN accepted.\n",
+            "Enter withdrawal amount: 150.0\n",
+            "Withdrawal of $150.0 successful.\n",
+            "withdrawal successful\n",
+            "Final balance: $350.0\n"
+          ]
+        }
+      ],
       "source": [
         "# IMPORT STATEMENTS\n",
         "# (None)\n",
@@ -51,15 +70,30 @@
         "#    - Return True\n",
         "    return True\n",
         "# 2. Define withdraw(balance, amount):\n",
+        "def withdraw(balance, amount):\n",
+        "    if amount <= balance:\n",
+        "        balance -= amount\n",
+        "        print(f\"Withdrawal of ${amount} successful.\")\n",
+        "        print(\"withdrawal successful\")\n",
+        "        return balance\n",
+        "    else:\n",
+        "        print(\"Insufficient funds.\")\n",
+        "        return balance # Return the original balance if funds are insufficient\n",
         "#    - Check if enough money exists\n",
         "#    - Return the new (or old) balance\n",
         "\n",
         "# PROGRAM LOGIC\n",
         "# 1. Set current_balance to 500\n",
+        "current_balance = 500\n",
         "# 2. Call verify_pin()\n",
+        "if verify_pin():\n",
         "# 3. Get withdrawal amount from user input\n",
+        "    amount = float(input(\"Enter withdrawal amount: \"))\n",
         "# 4. Update current_balance by calling withdraw()\n",
-        "# 5. Print the final balance"
+        "    current_balance = withdraw(current_balance, amount)\n",
+        "# 5. Print the final balance\n",
+        "    print(f\"Final balance: ${current_balance}\")\n",
+        "#"
       ]
     }
   ]
