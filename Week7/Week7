@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyN3B16e4JeNlIEc+1K0Gt9x",
+      "authorship_tag": "ABX9TyP0pmUDwLVI1Plzsem8p+Yn",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,7 +28,7 @@
     },
     {
       "cell_type": "code",
-      "execution_count": null,
+      "execution_count": 22,
       "metadata": {
         "id": "tUIyhaRHz5Vt"
       },
@@ -39,8 +39,17 @@
         "\n",
         "# FUNCTION DEFINITIONS\n",
         "# 1. Define verify_pin():\n",
+        "def verify_pin():\n",
         "#    - Create a loop that asks for a PIN until it equals \"1234\"\n",
+        "    while True:\n",
+        "        pin = input(\"Enter your PIN: \")\n",
+        "        if pin == \"1234\":\n",
+        "            print(\"PIN accepted.\")\n",
+        "            break\n",
+        "        else:\n",
+        "            print(\"Incorrect PIN. Try again.\")\n",
         "#    - Return True\n",
+        "    return True\n",
         "# 2. Define withdraw(balance, amount):\n",
         "#    - Check if enough money exists\n",
         "#    - Return the new (or old) balance\n",
