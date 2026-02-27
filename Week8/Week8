@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyNzGzpTVDp+h4N4+fMeAo08",
+      "authorship_tag": "ABX9TyOYDmufGtQtWrkHT/efd3jF",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -38,17 +38,30 @@
         "\n",
         "# FUNCTION DEFINITIONS\n",
         "# Define a function named is_palindrome that accepts one parameter: word\n",
+        "def is_palindrome(word):\n",
         "    # Convert the input word to lowercase to ensure case insensitivity\n",
+        "    lowercase_word = word.lower()\n",
         "    # Reverse the lowercase_word using string slicing\n",
+        "    reversed_word = lowercase_word[::-1]\n",
         "    # Compare the lowercase_word with the reversed_word\n",
+        "    if lowercase_word == reversed_word:\n",
+        "        return True\n",
+        "    else:\n",
+        "        return False\n",
         "\n",
         "\n",
         "# PROGRAM LOGIC\n",
         "# prompt the user to enter a word and store it in a variable named user_word\n",
+        "user_word = input(\"Enter a word: \")\n",
         "# Call the is_palindrome function with the user_word\n",
         "# Store the boolean result in a variable named is_pal\n",
+        "is_pal = is_palindrome(user_word)\n",
         "# Check the value of is_pal to print a user-friendly message\n",
-        "    # if is_pal is False print a message indicating the word is not a palindrome"
+        "if is_pal:\n",
+        "    print(f\"{user_word} is a palindrome!\")\n",
+        "else:\n",
+        "    # if is_pal is False print a message indicating the word is not a palindrome\n",
+        "    print(f\"{user_word} is not a palindrome.\")"
       ]
     }
   ]
