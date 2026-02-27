@@ -28,11 +28,24 @@
     },
     {
       "cell_type": "code",
-      "execution_count": null,
+      "execution_count": 19,
       "metadata": {
-        "id": "K2Y42FosjDYj"
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "K2Y42FosjDYj",
+        "outputId": "88d6e2a2-40f0-4138-c51a-f4b7caa2834c"
       },
-      "outputs": [],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a word: Racecar\n",
+            "Racecar is a palindrome!\n"
+          ]
+        }
+      ],
       "source": [
         "# IMPORT STATEMENTS\n",
         "\n",
