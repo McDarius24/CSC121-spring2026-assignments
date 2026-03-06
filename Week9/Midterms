@@ -1,0 +1,91 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMuKGkZKydymOLkqqzAsOJY",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/McDarius24/CSC121-spring2026-assignments/blob/main/Week9/Midterms\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "GliMTKP6O3dy"
+      },
+      "outputs": [],
+      "source": [
+        "# NAME: rentalcar.py\n",
+        "# IMPORT STATEMENTS\n",
+        "# (NONE)\n",
+        "# FUNCTION DEFINITIONS\n",
+        "# calculate_total_bill calculates the total rental bill based on calassification code\n",
+        "def calculate_total_bill(classification_code, total_miles):\n",
+        "    # determine the daily rate based on the classification code\n",
+        "    if classification_code == 'B':\n",
+        "        daily_rate = 40\n",
+        "    elif classification_code == 'S':\n",
+        "        daily_rate = 60\n",
+        "    elif classification_code == 'L':\n",
+        "        daily_rate = 80\n",
+        "    else:\n",
+        "        return None\n",
+        "    # calculate mileage charge\n",
+        "    if total_miles <= 100:\n",
+        "        charged_miles = total_miles - 100\n",
+        "        mileage_charge = charged_miles * 0.35\n",
+        "    else:\n",
+        "        charged_miles = 0\n",
+        "        mileage_charge = 0\n",
+        "    # calculate total bill\n",
+        "    total_bill = daily_rate + mileage_charge\n",
+        "    # return the result\n",
+        "    return total_bill, charged_miles\n",
+        "\n",
+        "# PROGRAM LOGIC\n",
+        "# input validation loop\n",
+        "while True:\n",
+        "  car_code = input(\"Enter car classification code (B, S, L): \")\n",
+        "  if car_code in ['B', 'S', 'L']:\n",
+        "    break\n",
+        "  else:\n",
+        "    print(\"Invalid classification code. Please try again.\")\n",
+        "# Get total miles driven\n",
+        "total_miles_driven = float(input(\"Enter total miles driven: \"))\n",
+        "# Function call\n",
+        "final_bill, charged_miles_amount = calculate_total_bill(car_code, total_miles_driven)\n",
+        "# Mapping code to full name\n",
+        "if car_code == 'B':\n",
+        "  classification_name = 'Budget'\n",
+        "elif car_code == 'S':\n",
+        "  classification_name = 'Standard'\n",
+        "else:\n",
+        "  classification_name = 'Luxury'\n",
+        "# Display the final result\n",
+        "print(f\"Classification: {classification_name}\")\n",
+        "print(f\"Total miles driven: {total_miles_driven}\")\n",
+        "print(f\"Miles charged: {charged_miles_amount}\")\n",
+        "print(f\"Total bill: ${final_bill:.2f}\")"
+      ]
+    }
+  ]
+}
