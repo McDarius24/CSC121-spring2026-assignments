@@ -28,11 +28,28 @@
     },
     {
       "cell_type": "code",
-      "execution_count": null,
+      "execution_count": 28,
       "metadata": {
-        "id": "GliMTKP6O3dy"
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GliMTKP6O3dy",
+        "outputId": "6bab09e7-371e-4a34-c5f6-085e40d06472"
       },
-      "outputs": [],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter car classification code (B, S, L): S\n",
+            "Enter total miles driven: 250\n",
+            "Classification: Standard\n",
+            "Total miles driven: 250.0\n",
+            "Miles charged: 0\n",
+            "Total bill: $60.00\n"
+          ]
+        }
+      ],
       "source": [
         "# NAME: rentalcar.py\n",
         "# IMPORT STATEMENTS\n",
