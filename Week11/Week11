@@ -1,0 +1,57 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNBQsmu0y0jWWVyjLQSX2Ep",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/McDarius24/CSC121-spring2026-assignments/blob/main/Week11/Week11\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "Z2LSYTydk6lC"
+      },
+      "outputs": [],
+      "source": [
+        "# NAME: gradebook.py\n",
+        "\n",
+        "# IMPORT STATEMENTS\n",
+        "(NONE)\n",
+        "# FUNCTION DEFINITIONS\n",
+        "# Define add_students to accept a dictionary as a parameter.\n",
+        "# Use a loop to allow the user to input a student's name and grade (0-100), but the loop will end if the user types done.\n",
+        "# Student's name is the key and the grade is the value.\n",
+        "# Define calculate_average as a fruitful function that accepts gradebook dictionary\n",
+        "# the calculate_average function should calculate and return all the grades of the students in the dictionary\n",
+        "# Using values() will get you all the values from a dictionary.\n",
+        "\n",
+        "# PROGRAM LOGIC\n",
+        "# Initialize an empty dictionary called gradebook\n",
+        "# Call add_students to populate the dictionary\n",
+        "# Call calculate_average and display the resulting class average\n",
+        "# Print the final report showing the student's name and their grade"
+      ]
+    }
+  ]
+}
