@@ -28,11 +28,34 @@
     },
     {
       "cell_type": "code",
-      "execution_count": null,
+      "execution_count": 5,
       "metadata": {
-        "id": "Z2LSYTydk6lC"
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Z2LSYTydk6lC",
+        "outputId": "70cdc875-bce0-4f17-e37f-35f19c630bd4"
       },
-      "outputs": [],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter student's name (or type 'done' to finish): Alice\n",
+            "Enter Alice's grade (0-100): 95\n",
+            "Enter student's name (or type 'done' to finish): Bob\n",
+            "Enter Bob's grade (0-100): 82\n",
+            "Enter student's name (or type 'done' to finish): done\n",
+            "Class average: 88.50\n",
+            "\n",
+            "Student Report:\n",
+            "Student: Alice, Grade: 95\n",
+            "------------------\n",
+            "Student: Bob, Grade: 82\n",
+            "------------------\n"
+          ]
+        }
+      ],
       "source": [
         "# NAME: gradebook.py\n",
         "\n",
