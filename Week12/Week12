@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyP1bhReCngsTlYjXABkrbL8",
+      "authorship_tag": "ABX9TyPi6J3MZwiMHtG6OlnVlIy4",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,25 +28,52 @@
     },
     {
       "cell_type": "code",
-      "execution_count": null,
+      "execution_count": 5,
       "metadata": {
-        "id": "CRJguTEywThg"
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "qzAvpEnZ082f",
+        "outputId": "04a623dc-d1a2-4087-e107-f815ae8dd243"
       },
-      "outputs": [],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter the length of the rectangle: 10\n",
+            "Enter the width of the rectangle: 5\n",
+            "---Results---\n",
+            "The area of the rectangle is: 50.0\n",
+            "The perimeter of the rectangle is: 30.0\n"
+          ]
+        }
+      ],
       "source": [
         "# NAME: rectangle.py\n",
         "# IMPORT STATEMENTS\n",
         "\n",
         "# FUNCTION DEFINITIONS\n",
         "# Define calculate_rectangle to accept two parameters: length and width\n",
+        "def calculate_rectangle(length, width):\n",
         "# This should calculate the Area(length*width) and the perimeter(2*(length + width))\n",
+        "    area = length * width\n",
+        "    perimeter = 2 * (length + width)\n",
         "# this should return both results as a single tuple in the format:(area,perimeter)\n",
+        "    return area, perimeter\n",
         "\n",
         "# PROGRAM LOGIC\n",
         "# Ask the user to input a length and a width and convert them to floats\n",
+        "length = float(input(\"Enter the length of the rectangle: \"))\n",
+        "width = float(input(\"Enter the width of the rectangle: \"))\n",
         "# Call the calculate_rectangle function using the user's input\n",
+        "results = calculate_rectangle(length, width)\n",
         "# Unpack the returned tuple into two seperate variables called my_area and my perimeter\n",
-        "# Print the results clearly for the user"
+        "my_area, my_perimeter = results\n",
+        "# Print the results clearly for the user\n",
+        "print(\"---Results---\")\n",
+        "print(f\"The area of the rectangle is: {my_area}\")\n",
+        "print(f\"The perimeter of the rectangle is: {my_perimeter}\")"
       ]
     }
   ]
