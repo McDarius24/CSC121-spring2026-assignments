@@ -1,0 +1,57 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOkpd1HPkBFqc6mKYF+xRjW",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/McDarius24/CSC121-spring2026-assignments/blob/main/Week13/Week13\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "0Ye4FGn2nwBh"
+      },
+      "outputs": [],
+      "source": [
+        "# NAME: journal.py\n",
+        "# IMPORT STATEMENTS\n",
+        "\n",
+        "# FUNCTION DEFINITIONS\n",
+        "# Define write_entry to accept a filename and a string which is the entry as parameters.\n",
+        "# write_entry should open a file in append mode ('a').\n",
+        "# write_entry should write the entry to the file, and it should ensure that each new entry will start on a new line.\n",
+        "# This should also close the file once it is finished.\n",
+        "# read_journal should accept the filename as a parameter.\n",
+        "# read_journal should open a file in read mode ('r')\n",
+        "# The read_journal should read the entire contents and print them on the screen so the user could see past entries\n",
+        "\n",
+        "# PROGRAM LOGIC\n",
+        "# Ask the user if they want to (W)rite a new entry or (R)ead their journal.\n",
+        "# If the user choose 'W', ask for their thoughts and call write_entry.\n",
+        "# If the user choose 'R', call read_journal.\n",
+        "# Wrap this in a while loop so the user can keep using the app until they type quit."
+      ]
+    }
+  ]
+}
