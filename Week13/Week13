@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyOkpd1HPkBFqc6mKYF+xRjW",
+      "authorship_tag": "ABX9TyPRKcP3u+pjeo5crKkCt3UD",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,29 +28,72 @@
     },
     {
       "cell_type": "code",
-      "execution_count": null,
+      "execution_count": 28,
       "metadata": {
-        "id": "0Ye4FGn2nwBh"
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JuJx4yHQ42rY",
+        "outputId": "5c467ff9-16f5-4e2e-8b4c-303aabb9c7e3"
       },
-      "outputs": [],
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "Do you want to (W)rite, (R)ead, or (Q)uit? W\n",
+            "What do you want to write? Today I learned about file persistence in Python! \n",
+            "Do you want to (W)rite, (R)ead, or (Q)uit? R\n",
+            "--- Your Journal ---\n",
+            "Today I learned about file persistence in Python!\n",
+            "Today I learned about file persistence in Python! \n",
+            "Today I learned about file persistence in Python! \n",
+            "\n",
+            "Do you want to (W)rite, (R)ead, or (Q)uit? Q\n"
+          ]
+        }
+      ],
       "source": [
         "# NAME: journal.py\n",
         "# IMPORT STATEMENTS\n",
         "\n",
         "# FUNCTION DEFINITIONS\n",
         "# Define write_entry to accept a filename and a string which is the entry as parameters.\n",
+        "def write_entry(filename, entry):\n",
         "# write_entry should open a file in append mode ('a').\n",
+        "    with open(filename, 'a') as file:\n",
         "# write_entry should write the entry to the file, and it should ensure that each new entry will start on a new line.\n",
+        "        file.write(entry + '\\n')\n",
+        "# Define read_journal to accept a filename as a parameter.\n",
+        "def read_journal(filename):\n",
+        "# read_journal should open a file in read mode ('r').\n",
+        "    with open(filename, 'r') as file:\n",
+        "# read_journal should read the entire contents.\n",
+        "        contents = file.read()\n",
+        "# read_journal should print the contents to the screen.\n",
+        "        print(contents)\n",
         "# This should also close the file once it is finished.\n",
-        "# read_journal should accept the filename as a parameter.\n",
-        "# read_journal should open a file in read mode ('r')\n",
-        "# The read_journal should read the entire contents and print them on the screen so the user could see past entries\n",
+        "\n",
         "\n",
         "# PROGRAM LOGIC\n",
+        "# Wrap this in a while loop so the user can keep using the app until they type quit.\n",
+        "choice = '' # Initialize choice to enter the loop\n",
+        "while choice != 'quit':\n",
         "# Ask the user if they want to (W)rite a new entry or (R)ead their journal.\n",
+        "    choice = input(\"Do you want to (W)rite, (R)ead, or (Q)uit? \").upper()\n",
         "# If the user choose 'W', ask for their thoughts and call write_entry.\n",
+        "    if choice == 'W':\n",
+        "        entry = input(\"What do you want to write? \")\n",
+        "        write_entry('journal.txt', entry)\n",
         "# If the user choose 'R', call read_journal.\n",
-        "# Wrap this in a while loop so the user can keep using the app until they type quit."
+        "    elif choice == 'R':\n",
+        "        print(\"--- Your Journal ---\")\n",
+        "        read_journal('journal.txt')\n",
+        "# If the user choose 'Q', set choice to 'quit' to exit the loop.\n",
+        "    elif choice == 'Q':\n",
+        "        choice = 'quit'\n",
+        "    else:\n",
+        "        print(\"Invalid choice. Please enter 'W' to write, 'R' to read, or 'Q' to quit.\")\n"
       ]
     }
   ]
