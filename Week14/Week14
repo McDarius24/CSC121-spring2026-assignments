@@ -1,0 +1,56 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOYDnpW9mHrhpuYEsqvvepp",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/McDarius24/CSC121-spring2026-assignments/blob/main/Week14/Week14\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "OC6N0QR2eGJM"
+      },
+      "outputs": [],
+      "source": [
+        "# NAME: library.py\n",
+        "# IMPORT STATEMENTS\n",
+        "\n",
+        "# CLASS DEFINITIONS\n",
+        "# Create a class named Book.\n",
+        "# Define _init_ method to accept the author and the title. It should also include a third attribute, is_available, which defaults to True\n",
+        "# Define _str_ method so when a book object is printed it returns a user-friendly string.\n",
+        "# Create a method called checkout() that sets is_available to False.\n",
+        "# Create a method called return_book() that sets is_available to True.\n",
+        "\n",
+        "\n",
+        "# PROGRAM LOGIC\n",
+        "# Create two different objects of the Book class.\n",
+        "# Print the status of both books.\n",
+        "# \"Check out\" one of the books using the method.\n",
+        "# Print both books again to show the status of the specific object changed."
+      ]
+    }
+  ]
+}
