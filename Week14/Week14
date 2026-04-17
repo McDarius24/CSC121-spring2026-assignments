@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyOYDnpW9mHrhpuYEsqvvepp",
+      "authorship_tag": "ABX9TyMcYKdJXxXyDhSURbQdaXik",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,28 +28,69 @@
     },
     {
       "cell_type": "code",
-      "execution_count": null,
+      "execution_count": 18,
       "metadata": {
-        "id": "OC6N0QR2eGJM"
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "OC6N0QR2eGJM",
+        "outputId": "60316dc1-ac2e-48d7-89e1-75e75392d870"
       },
-      "outputs": [],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "--- Library Status ---\n",
+            "Think Python by Allen Downey (available)\n",
+            "The Hobbit by J.R.R. Tolkien (available)\n",
+            "\n",
+            "Checking out 'The Hobbit'\n",
+            "\n",
+            "--- Updated Status ---\n",
+            "Think Python by Allen Downey (available)\n",
+            "The Hobbit by J.R.R. Tolkien (Checked Out)\n"
+          ]
+        }
+      ],
       "source": [
         "# NAME: library.py\n",
         "# IMPORT STATEMENTS\n",
         "\n",
         "# CLASS DEFINITIONS\n",
         "# Create a class named Book.\n",
+        "class Book:\n",
         "# Define _init_ method to accept the author and the title. It should also include a third attribute, is_available, which defaults to True\n",
+        "    def __init__(self, author, title, is_available=True):\n",
+        "        self.author = author\n",
+        "        self.title = title\n",
+        "        self.is_available = is_available\n",
         "# Define _str_ method so when a book object is printed it returns a user-friendly string.\n",
+        "    def __str__(self):\n",
+        "        return f\"{self.title} by {self.author} ({'available' if self.is_available else 'Checked Out'})\"\n",
         "# Create a method called checkout() that sets is_available to False.\n",
+        "    def checkout(self):\n",
+        "        self.is_available = False\n",
         "# Create a method called return_book() that sets is_available to True.\n",
+        "    def return_book(self):\n",
+        "        self.is_available = True\n",
         "\n",
         "\n",
         "# PROGRAM LOGIC\n",
         "# Create two different objects of the Book class.\n",
+        "book1 = Book(\"Allen Downey\", \"Think Python\")\n",
+        "book2 = Book(\"J.R.R. Tolkien\", \"The Hobbit\")\n",
         "# Print the status of both books.\n",
+        "print(\"--- Library Status ---\")\n",
+        "print(book1)\n",
+        "print(book2)\n",
         "# \"Check out\" one of the books using the method.\n",
-        "# Print both books again to show the status of the specific object changed."
+        "print(f\"\\nChecking out '{book2.title}'\")\n",
+        "book2.checkout()\n",
+        "# Print both books again to show the status of the specific object changed.\n",
+        "print(\"\\n--- Updated Status ---\")\n",
+        "print(book1)\n",
+        "print(book2)"
       ]
     }
   ]
