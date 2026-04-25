@@ -1,0 +1,100 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNJDaF6IR2zx6GmD6q/CX6a",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/McDarius24/CSC121-spring2026-assignments/blob/main/Project1/Project1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "2G2bKED47m5k"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "8483edc4"
+      },
+      "source": [
+        "tasks = []\n",
+        "\n",
+        "def add_task():\n",
+        "    task_name = input(\"Enter task name: \")\n",
+        "    while True:\n",
+        "        try:\n",
+        "            priority = int(input(\"Enter priority (1: High, 2: Medium, 3: Low): \"))\n",
+        "            if 1 <= priority <= 3:\n",
+        "                tasks.append({'name': task_name, 'priority': priority})\n",
+        "                print(f\"Task '{task_name}' added with priority {priority}.\")\n",
+        "                break\n",
+        "            else:\n",
+        "                print(\"Invalid priority. Please enter 1, 2, or 3.\")\n",
+        "        except ValueError:\n",
+        "            print(\"Invalid input. Please enter a number for priority.\")\n",
+        "\n",
+        "def view_tasks():\n",
+        "    if not tasks:\n",
+        "        print(\"No tasks to display.\")\n",
+        "        return\n",
+        "\n",
+        "    # Sort tasks by priority (lower number = higher priority)\n",
+        "    sorted_tasks = sorted(tasks, key=lambda x: x['priority'])\n",
+        "\n",
+        "    print(\"\\n--- Your Tasks ---\")\n",
+        "    priority_map = {1: 'High', 2: 'Medium', 3: 'Low'}\n",
+        "    for i, task in enumerate(sorted_tasks, 1):\n",
+        "        print(f\"{i}. {task['name']} (Priority: {priority_map[task['priority']]})\")\n",
+        "    print(\"------------------\\n\")\n",
+        "\n",
+        "def main():\n",
+        "    while True:\n",
+        "        print(\"\\nPersonal Task Manager\")\n",
+        "        print(\"1. Add Task\")\n",
+        "        print(\"2. View Tasks\")\n",
+        "        print(\"3. Exit\")\n",
+        "\n",
+        "        choice = input(\"Enter your choice: \")\n",
+        "\n",
+        "        if choice == '1':\n",
+        "            add_task()\n",
+        "        elif choice == '2':\n",
+        "            view_tasks()\n",
+        "        elif choice == '3':\n",
+        "            print(\"Exiting Task Manager. Goodbye!\")\n",
+        "            break\n",
+        "        else:\n",
+        "            print(\"Invalid choice. Please try again.\")\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    main()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
