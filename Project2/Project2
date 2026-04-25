@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyNv5nu5YQ9qeC8zXZRQE9Xs",
+      "authorship_tag": "ABX9TyPZAhizn8u4zuY3FCniHJxY",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -53,7 +53,7 @@
         "import pandas as pd\n",
         "import os"
       ],
-      "execution_count": 8,
+      "execution_count": 13,
       "outputs": []
     },
     {
@@ -65,7 +65,20 @@
         "# Define the file path for saving/loading the game library\n",
         "FILE_PATH = 'game_library.csv'"
       ],
-      "execution_count": 9,
+      "execution_count": 14,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "85d7afcf"
+      },
+      "source": [
+        "# Define file paths for Wishlist and Playtime Log\n",
+        "WISHLIST_FILE_PATH = 'game_wishlist.csv'\n",
+        "PLAYLOG_FILE_PATH = 'game_playlog.csv'"
+      ],
+      "execution_count": 15,
       "outputs": []
     },
     {
@@ -98,7 +111,55 @@
         "    df.to_csv(file_path, index=False)\n",
         "    print(f\"Game library saved to {file_path}.\")"
       ],
-      "execution_count": 10,
+      "execution_count": 16,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "9d37ae77"
+      },
+      "source": [
+        "def load_wishlist(file_path):\n",
+        "    \"\"\"Loads the game wishlist from a CSV file.\"\"\"\n",
+        "    if os.path.exists(file_path):\n",
+        "        df = pd.read_csv(file_path)\n",
+        "        print(f\"Game wishlist loaded from {file_path}.\")\n",
+        "        return df\n",
+        "    else:\n",
+        "        print(\"No existing game wishlist found. Starting a new one.\")\n",
+        "        return pd.DataFrame(columns=['Title', 'Platform', 'Target Price', 'Current Price', 'Store Link'])\n",
+        "\n",
+        "def save_wishlist(df, file_path):\n",
+        "    \"\"\"Saves the game wishlist to a CSV file.\"\"\"\n",
+        "    df.to_csv(file_path, index=False)\n",
+        "    print(f\"Game wishlist saved to {file_path}.\")"
+      ],
+      "execution_count": 17,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "1de9ad3b"
+      },
+      "source": [
+        "def load_playlog(file_path):\n",
+        "    \"\"\"Loads the game play log from a CSV file.\"\"\"\n",
+        "    if os.path.exists(file_path):\n",
+        "        df = pd.read_csv(file_path, parse_dates=['Start Time', 'End Time'])\n",
+        "        print(f\"Game play log loaded from {file_path}.\")\n",
+        "        return df\n",
+        "    else:\n",
+        "        print(\"No existing game play log found. Starting a new one.\")\n",
+        "        return pd.DataFrame(columns=['Title', 'Platform', 'Start Time', 'End Time', 'Duration (minutes)', 'Notes'])\n",
+        "\n",
+        "def save_playlog(df, file_path):\n",
+        "    \"\"\"Saves the game play log to a CSV file.\"\"\"\n",
+        "    df.to_csv(file_path, index=False)\n",
+        "    print(f\"Game play log saved to {file_path}.\")"
+      ],
+      "execution_count": 18,
       "outputs": []
     },
     {
@@ -145,7 +206,104 @@
         "        overall_avg = df['Rating'].mean().round(2)\n",
         "        return f\"Overall average rating: {overall_avg}\""
       ],
-      "execution_count": 11,
+      "execution_count": 19,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "e626515d"
+      },
+      "source": [
+        "def add_to_wishlist(df, title, platform, target_price, current_price=None, store_link=None):\n",
+        "    \"\"\"Adds a game to the wishlist DataFrame.\"\"\"\n",
+        "    try:\n",
+        "        target_price = float(target_price)\n",
+        "        if current_price is not None: current_price = float(current_price)\n",
+        "    except ValueError:\n",
+        "        print(\"Prices must be numbers.\")\n",
+        "        return df\n",
+        "\n",
+        "    new_item = pd.DataFrame([{'Title': title, 'Platform': platform, 'Target Price': target_price,\n",
+        "                                'Current Price': current_price, 'Store Link': store_link}])\n",
+        "    updated_df = pd.concat([df, new_item], ignore_index=True)\n",
+        "    print(f\"Added '{title}' to the wishlist.\")\n",
+        "    return updated_df\n",
+        "\n",
+        "def update_wishlist_price(df, title, platform, new_price):\n",
+        "    \"\"\"Updates the current price for a game on the wishlist.\"\"\"\n",
+        "    try:\n",
+        "        new_price = float(new_price)\n",
+        "    except ValueError:\n",
+        "        print(\"New price must be a number.\")\n",
+        "        return df\n",
+        "\n",
+        "    mask = (df['Title'].str.lower() == title.lower()) & (df['Platform'].str.lower() == platform.lower())\n",
+        "    if mask.any():\n",
+        "        df.loc[mask, 'Current Price'] = new_price\n",
+        "        print(f\"Updated current price for '{title}' to {new_price}.\")\n",
+        "    else:\n",
+        "        print(f\"Game '{title}' on platform '{platform}' not found in wishlist.\")\n",
+        "    return df\n",
+        "\n",
+        "def check_price_alerts(wishlist_df):\n",
+        "    \"\"\"Checks for games on the wishlist whose current price is at or below the target price.\"\"\"\n",
+        "    if wishlist_df.empty:\n",
+        "        return \"No items in wishlist to check for price alerts.\"\n",
+        "\n",
+        "    alerts = wishlist_df[(wishlist_df['Current Price'].notna()) & (wishlist_df['Current Price'] <= wishlist_df['Target Price'])]\n",
+        "    if alerts.empty:\n",
+        "        return \"No price alerts at this time.\"\n",
+        "    else:\n",
+        "        alert_message = \"Price Alerts! The following games are at or below their target price:\\n\"\n",
+        "        for index, row in alerts.iterrows():\n",
+        "            alert_message += f\"  - {row['Title']} ({row['Platform']}): Current Price ${row['Current Price']} (Target ${row['Target Price']})\\n\"\n",
+        "        return alert_message"
+      ],
+      "execution_count": 20,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "cd766359"
+      },
+      "source": [
+        "from datetime import datetime, timedelta\n",
+        "\n",
+        "def log_play_session(df, title, platform, start_time_str, end_time_str, notes=\"\"):\n",
+        "    \"\"\"Logs a single play session for a game.\"\"\"\n",
+        "    try:\n",
+        "        start_time = datetime.fromisoformat(start_time_str)\n",
+        "        end_time = datetime.fromisoformat(end_time_str)\n",
+        "        if end_time < start_time:\n",
+        "            print(\"End time cannot be before start time.\")\n",
+        "            return df\n",
+        "    except ValueError:\n",
+        "        print(\"Invalid date/time format. Please use ISO format (e.g., 'YYYY-MM-DD HH:MM:SS').\")\n",
+        "        return df\n",
+        "\n",
+        "    duration_minutes = (end_time - start_time).total_seconds() / 60\n",
+        "\n",
+        "    new_session = pd.DataFrame([{'Title': title, 'Platform': platform, 'Start Time': start_time,\n",
+        "                                 'End Time': end_time, 'Duration (minutes)': duration_minutes, 'Notes': notes}])\n",
+        "    updated_df = pd.concat([df, new_session], ignore_index=True)\n",
+        "    print(f\"Logged a {duration_minutes:.0f} minute session for '{title}'.\")\n",
+        "    return updated_df\n",
+        "\n",
+        "def calculate_total_playtime(df, by_column=None):\n",
+        "    \"\"\"Calculates total playtime, optionally grouped by a column.\"\"\"\n",
+        "    if df.empty:\n",
+        "        return \"No play sessions logged to calculate playtime.\"\n",
+        "\n",
+        "    if by_column and by_column in df.columns:\n",
+        "        total_playtime = df.groupby(by_column)['Duration (minutes)'].sum().round(0)\n",
+        "        return f\"Total playtime by {by_column} (minutes):\\n{total_playtime}\"\n",
+        "    else:\n",
+        "        overall_total = df['Duration (minutes)'].sum().round(0)\n",
+        "        return f\"Overall total playtime: {overall_total} minutes\""
+      ],
+      "execution_count": 21,
       "outputs": []
     },
     {
@@ -162,10 +320,10 @@
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/",
-          "height": 591
+          "height": 716
         },
         "id": "ffd1b2a2",
-        "outputId": "fa003cf6-9cdb-4e44-abbb-f7bafcf340de"
+        "outputId": "618967d8-67c7-4182-f79f-c8f2c8d64ec3"
       },
       "source": [
         "# 1. Load the game library (or create an empty one if it doesn't exist)\n",
@@ -189,13 +347,13 @@
         "# 5. Save the updated library\n",
         "save_library(game_library_df, FILE_PATH)"
       ],
-      "execution_count": 12,
+      "execution_count": 22,
       "outputs": [
         {
           "output_type": "stream",
           "name": "stdout",
           "text": [
-            "No existing game library found. Starting a new one.\n",
+            "Game library loaded from game_library.csv.\n",
             "Added 'The Witcher 3' to the library.\n",
             "Added 'Cyberpunk 2077' to the library.\n",
             "Added 'Red Dead Redemption 2' to the library.\n",
@@ -208,15 +366,19 @@
           "output_type": "display_data",
           "data": {
             "text/plain": [
-              "                   Title         Platform      Genre Rating\n",
-              "0          The Witcher 3               PC        RPG      9\n",
-              "1         Cyberpunk 2077               PC        RPG      7\n",
-              "2  Red Dead Redemption 2      PlayStation     Action     10\n",
-              "3                  Hades  Nintendo Switch  Roguelike      9"
+              "                   Title         Platform      Genre  Rating\n",
+              "0          The Witcher 3               PC        RPG       9\n",
+              "1         Cyberpunk 2077               PC        RPG       7\n",
+              "2  Red Dead Redemption 2      PlayStation     Action      10\n",
+              "3                  Hades  Nintendo Switch  Roguelike       9\n",
+              "4          The Witcher 3               PC        RPG       9\n",
+              "5         Cyberpunk 2077               PC        RPG       7\n",
+              "6  Red Dead Redemption 2      PlayStation     Action      10\n",
+              "7                  Hades  Nintendo Switch  Roguelike       9"
             ],
             "text/html": [
               "\n",
-              "  <div id=\"df-5e8e4a85-491e-4196-a410-02ceee414d2d\" class=\"colab-df-container\">\n",
+              "  <div id=\"df-37a938fb-a8e6-4326-9a6f-64ad92423c07\" class=\"colab-df-container\">\n",
               "    <div>\n",
               "<style scoped>\n",
               "    .dataframe tbody tr th:only-of-type {\n",
@@ -270,13 +432,41 @@
               "      <td>Roguelike</td>\n",
               "      <td>9</td>\n",
               "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>The Witcher 3</td>\n",
+              "      <td>PC</td>\n",
+              "      <td>RPG</td>\n",
+              "      <td>9</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>5</th>\n",
+              "      <td>Cyberpunk 2077</td>\n",
+              "      <td>PC</td>\n",
+              "      <td>RPG</td>\n",
+              "      <td>7</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>6</th>\n",
+              "      <td>Red Dead Redemption 2</td>\n",
+              "      <td>PlayStation</td>\n",
+              "      <td>Action</td>\n",
+              "      <td>10</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>7</th>\n",
+              "      <td>Hades</td>\n",
+              "      <td>Nintendo Switch</td>\n",
+              "      <td>Roguelike</td>\n",
+              "      <td>9</td>\n",
+              "    </tr>\n",
               "  </tbody>\n",
               "</table>\n",
               "</div>\n",
               "    <div class=\"colab-df-buttons\">\n",
               "\n",
               "  <div class=\"colab-df-container\">\n",
-              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-5e8e4a85-491e-4196-a410-02ceee414d2d')\"\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-37a938fb-a8e6-4326-9a6f-64ad92423c07')\"\n",
               "            title=\"Convert this dataframe to an interactive table.\"\n",
               "            style=\"display:none;\">\n",
               "\n",
@@ -328,12 +518,12 @@
               "\n",
               "    <script>\n",
               "      const buttonEl =\n",
-              "        document.querySelector('#df-5e8e4a85-491e-4196-a410-02ceee414d2d button.colab-df-convert');\n",
+              "        document.querySelector('#df-37a938fb-a8e6-4326-9a6f-64ad92423c07 button.colab-df-convert');\n",
               "      buttonEl.style.display =\n",
               "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
               "\n",
               "      async function convertToInteractive(key) {\n",
-              "        const element = document.querySelector('#df-5e8e4a85-491e-4196-a410-02ceee414d2d');\n",
+              "        const element = document.querySelector('#df-37a938fb-a8e6-4326-9a6f-64ad92423c07');\n",
               "        const dataTable =\n",
               "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
               "                                                    [key], {});\n",
@@ -353,7 +543,7 @@
               "  </div>\n",
               "\n",
               "\n",
-              "  <div id=\"id_caef512c-cbf5-49ad-8eb3-6191cda20746\">\n",
+              "  <div id=\"id_3fabc56a-3cf0-43a4-bc46-cf29333c760a\">\n",
               "    <style>\n",
               "      .colab-df-generate {\n",
               "        background-color: #E8F0FE;\n",
@@ -397,7 +587,7 @@
               "    <script>\n",
               "      (() => {\n",
               "      const buttonEl =\n",
-              "        document.querySelector('#id_caef512c-cbf5-49ad-8eb3-6191cda20746 button.colab-df-generate');\n",
+              "        document.querySelector('#id_3fabc56a-3cf0-43a4-bc46-cf29333c760a button.colab-df-generate');\n",
               "      buttonEl.style.display =\n",
               "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
               "\n",
@@ -414,7 +604,7 @@
             "application/vnd.google.colaboratory.intrinsic+json": {
               "type": "dataframe",
               "variable_name": "game_library_df",
-              "summary": "{\n  \"name\": \"game_library_df\",\n  \"rows\": 4,\n  \"fields\": [\n    {\n      \"column\": \"Title\",\n      \"properties\": {\n        \"dtype\": \"string\",\n        \"num_unique_values\": 4,\n        \"samples\": [\n          \"Cyberpunk 2077\",\n          \"Hades\",\n          \"The Witcher 3\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Platform\",\n      \"properties\": {\n        \"dtype\": \"string\",\n        \"num_unique_values\": 3,\n        \"samples\": [\n          \"PC\",\n          \"PlayStation\",\n          \"Nintendo Switch\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Genre\",\n      \"properties\": {\n        \"dtype\": \"string\",\n        \"num_unique_values\": 3,\n        \"samples\": [\n          \"RPG\",\n          \"Action\",\n          \"Roguelike\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Rating\",\n      \"properties\": {\n        \"dtype\": \"date\",\n        \"min\": 7,\n        \"max\": 10,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          9,\n          7,\n          10\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+              "summary": "{\n  \"name\": \"game_library_df\",\n  \"rows\": 8,\n  \"fields\": [\n    {\n      \"column\": \"Title\",\n      \"properties\": {\n        \"dtype\": \"string\",\n        \"num_unique_values\": 4,\n        \"samples\": [\n          \"Cyberpunk 2077\",\n          \"Hades\",\n          \"The Witcher 3\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Platform\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 3,\n        \"samples\": [\n          \"PC\",\n          \"PlayStation\",\n          \"Nintendo Switch\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Genre\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 3,\n        \"samples\": [\n          \"RPG\",\n          \"Action\",\n          \"Roguelike\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Rating\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 1,\n        \"min\": 7,\n        \"max\": 10,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          9,\n          7,\n          10\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
             }
           },
           "metadata": {}
@@ -431,14 +621,14 @@
             "Nintendo Switch     9.0\n",
             "PC                  8.0\n",
             "PlayStation        10.0\n",
-            "Name: Rating, dtype: object\n",
+            "Name: Rating, dtype: float64\n",
             "\n",
             "Average ratings by Genre:\n",
             "Genre\n",
             "Action       10.0\n",
             "RPG           8.0\n",
             "Roguelike     9.0\n",
-            "Name: Rating, dtype: object\n",
+            "Name: Rating, dtype: float64\n",
             "Game library saved to game_library.csv.\n"
           ]
         }
