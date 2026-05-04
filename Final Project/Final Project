@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyNHC9FwUSAlbVTe9kbcN9MR",
+      "authorship_tag": "ABX9TyM2sq873MHDEXuVTRCSfx3z",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -24,29 +24,6 @@
       },
       "source": [
         "<a href=\"https://colab.research.google.com/github/McDarius24/CSC121-spring2026-assignments/blob/main/Final%20Project/Final%20Project\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {
-        "id": "pbPrfqc3tWRy"
-      },
-      "outputs": [],
-      "source": [
-        "import pandas as pd\n",
-        "import matplotlib.pyplot as plt\n",
-        "from IPython.display import display\n",
-        "\n",
-        "# FUNCTION DEFINITIONS\n",
-        "# Define add_expense() to prompt the user to enter a new expense record that includes 'Category', 'Vendor', 'Amount', and 'Date'.\n",
-        "# Define get_expenses_dataframe() function to convert the global list of expense dictionaries into a pandas DataFrame and should also ensure that the 'Amount' column is cast to a numeric type and the 'Date' column to a datetime type.\n",
-        "# Define report_all_expenses() to generate a report of all recorded expenses by retrieving the DataFrame using get_expenses_Dataframe(), calculating total sum of all amounts, printing the overall total the display the entire DataFrame sorted by 'Date'.\n",
-        "# Define report_by_category() to prompt the user for a specifc category, and it should filter the expenses Dataframe by that category, and calculate the filtered expenses\n",
-        "# Define report_by_vendor to prompt the user for a specific vendor and it will filter the expenses DataFrame by that vendor and it will calculate the total for filtered expenses.\n",
-        "\n",
-        "# PROGRAM LOGIC\n",
-        "# main() will be the main entry point of the program and it will establish a continous loop that shows a menu of options to the user: 1. Add New Expense, 2. Get Totals, 3. Exit. It should ensure robust handling of user input including validation for menu choices. The loop should terminate when the user selects the Exit option.\n"
       ]
     },
     {
